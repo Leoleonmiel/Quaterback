@@ -35,7 +35,8 @@ In **1v1 local mode**, players take turns eliminating enemy units. Each time an 
 
 - ## 👥 Contributors  
 - [@Hedi BEN HAFSA](https://github.com/Qualqun)
-- [@Aurelien REY](https://github.com/Epharos)    
+- [@Aurelien REY](https://github.com/Epharos)
+- [@Swann CARLE](https://github.com/Nitsuke42)        
 
 ## 📜 License  
 This project is **open-source**. Feel free to use, modify, and contribute!  
