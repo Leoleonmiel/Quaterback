@@ -335,7 +335,6 @@ void Player::UnitTakeToken()
 				unit[i].SetToken(token[iToken]);
 				token.erase(token.begin() + iToken);
 				std::cout << unit[i].GetToken().GetRole() << std::endl;
-
 			}
 		}
 	}

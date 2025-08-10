@@ -24,7 +24,6 @@ Unit::Unit(const Unit& _unit, GridData& _grid)
 
 void Unit::Move(sf::Vector2i& _newPos, GridData& _grid)
 {
-
 	_grid.SetIsOccupied(pos.x, pos.y, false);
 	_grid.SetIsOccupied(_newPos.x, _newPos.y, true);
 	_grid.SetIsClicked(false);

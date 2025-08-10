@@ -23,7 +23,7 @@ int main()
 void Load(MainData& _main)
 {
 	sf::VideoMode mode = { SCREEN_WIDTH, SCREEN_HEIGHT };
-	_main.window = new sf::RenderWindow(mode, WINDOW_NAME, sf::Style::Fullscreen); //create window in the heap
+	_main.window = new sf::RenderWindow(mode, WINDOW_NAME, sf::Style::Fullscreen);
 	_main.window->setVerticalSyncEnabled(true);
 	_main.window->setFramerateLimit(FPS_MAX);
 
@@ -141,7 +141,6 @@ void Update(MainData& _main)
 void Draw(MainData& _main, sf::RenderWindow& _window)
 {
 	_window.clear(sf::Color(149, 150, 180));
-
 	_window.setView(_main.game->GetCameraData()->GetCamera());
 
 	if (_main.gameState->GetCurrentState() == "MENU")
@@ -152,12 +151,6 @@ void Draw(MainData& _main, sf::RenderWindow& _window)
 	{
 		_main.game->Draw(_window);
 	}
-
-
-	//Temp to show currentState text <-----TO DELETE
-	//_main.gameState->text.setString(_main.gameState->GetCurrentState());
-	//_window.draw(_main.gameState->text);
-
 	_window.display();
 }
 

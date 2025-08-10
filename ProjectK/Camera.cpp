@@ -70,7 +70,6 @@ void UpdateCamera(CameraData& _camera, float _dt)
 
 	//Get the new size in case it was adjusted before
 	camSize = _camera.GetCamera().getSize();
-	//std::cout << "x : " << camSize.x << "	" << "y : " << camSize.y << std::endl;
 	sf::Vector2f camCenter = _camera.GetCamera().getCenter();
 	if (camCenter.x - camSize.x / 2 < 0)
 	{

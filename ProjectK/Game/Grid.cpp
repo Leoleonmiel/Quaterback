@@ -38,7 +38,6 @@ enum DirTypes
 };
 #pragma endregion
 
-//Change ici HEDI mon petit bout de kiri
 bool GridData::m_isPathfindingEnabled = false;
 bool GridData::m_allowDiagonal = true;
 sf::Vector2i GridData::m_start = { -1,-1 };
@@ -136,7 +135,6 @@ void GridData::UdpateGrid(void)
 	if (!m_isClicked)
 	{
 		CleanPath(m_start, m_end);
-		//GetCell()[m_start.x][m_start.y].m_sprite->setColor(sf::Color::White);
 	}
 }
 
@@ -209,7 +207,6 @@ void GridData::MouseMovedGrid(sf::Vector2f mousePosition, const int& _mana)
 
 			if (!(m_start == m_end))
 			{
-				//m_cell[(int)m_start.x][(int)m_start.y].m_sprite->setColor(sf::Color::Magenta);
 				if (m_allowDiagonal)
 				{
 					path = BFSDiagonal(m_start, m_end, _mana);
@@ -219,23 +216,18 @@ void GridData::MouseMovedGrid(sf::Vector2f mousePosition, const int& _mana)
 					path = BFS(m_start, m_end, _mana);
 				}
 
-				// Draw only a portion of the path based on available mana
 				int drawLength = std::min(static_cast<int>(path.size()), _mana);
 				UpdateCellColors(std::vector<sf::Vector2i>(path.begin(), path.begin() + drawLength), _mana);
-				m_oldPath = path; // Store the current valid path
-
-
+				m_oldPath = path; 
 			}
 		}
 		else
 		{
-			// If not in pathfinding mode, draw the last valid path
 			UpdateCellColors(m_oldPath, _mana);
 		}
 	}
 	else
 	{
-		// If outside the grid, draw the last valid path
 		UpdateCellColors(m_oldPath, _mana);
 	}
 }
@@ -296,14 +288,11 @@ std::vector<sf::Vector2i> GridData::BFS(const sf::Vector2i& _start, const sf::Ve
 				cell = previousCell[cell.x][cell.y];
 
 			}
-			// Include the start cell in the path
 			std::reverse(path.begin(), path.end());
-			//path.pop_back();
 			return path;
 		}
 
 		std::array<const sf::Vector2i, 4> directions = { { { 0, -1 }, { 0, 1 }, { 1, 0 }, { -1, 0 } } };
-		//std::array<const sf::Vector2i, 4> directions = { { { LEFT, NONE }, { RIGHT, NONE }, { NONE, DOWN }, { NONE, UP } } };
 		for (const sf::Vector2i& dir : directions)
 		{
 			sf::Vector2i nextCell = cell + dir;
@@ -321,7 +310,6 @@ std::vector<sf::Vector2i> GridData::BFS(const sf::Vector2i& _start, const sf::Ve
 		}
 	}
 
-	// If the loop completes without finding the end, return an empty path
 	return path;
 }
 
@@ -347,7 +335,6 @@ std::vector<sf::Vector2i> GridData::BFSDiagonal(sf::Vector2i _start, sf::Vector2
 
 		if (cell == _end)
 		{
-			// Build the path if the destination is reached
 			while (cell != _start)
 			{
 				path.push_back(cell);
@@ -439,9 +426,6 @@ void GridData::SetIsOccupied(int lineID, int columnID, const bool& isOccupied)
 GridData::GridData()
 	: m_cell{ nullptr }
 {
-	//Allocate memory for each dimension of the pointer
-	//First dimension allocation
-
 	m_tex = new sf::Texture;
 	m_cell = new Cell * [NB_LINE];
 
@@ -456,7 +440,6 @@ GridData::GridData()
 	}
 	std::cout << "\033[6;1;31mDefault\033[0m constructor for grid called !!" << std::endl;
 }
-//Copy constructor
 GridData::GridData(const GridData& _source)
 	: m_cell{ _source.m_cell }
 {
@@ -470,17 +453,14 @@ GridData::GridData(const GridData& _source)
 	}
 	std::cout << "\033[6;1;32mCopy\033[0m  constructor for grid called !!" << std::endl;
 }
-//Move Constructor
 GridData::GridData(GridData&& _source) noexcept
 	:m_cell{ _source.m_cell }
 {
-	// Move ownership of m_cell and set it to nullptr in the source
 	m_cell = _source.m_cell;
 	_source.m_cell = nullptr;
 
 	std::cout << "\033[6;1;33mMove\033[0m  constructor for grid called !!" << std::endl;
 }
-
 
 GridData::~GridData()
 {

@@ -105,13 +105,6 @@ void LoadHud(HudData& _hud)
 		_textBox.SetFont(&_hud.font);
 		_textBox.SetColor(_color);
 		_textBox.SplitTextIntoLines();
-
-		//_text.setFont(_hud.font);
-		//_text.setCharacterSize(_characterSize);
-		//_text.setFillColor(_color);
-		//_text.setPosition(_position);
-		//_text.setString(_string);
-		//_text.setRotation(_angle);
 	};
 
 	initializeText(_hud.textNumberTurn, 60, sf::Color::White, sf::Vector2f(50, 50));
@@ -164,15 +157,15 @@ void LoadHud(HudData& _hud)
 	{
 		_hud.unitFrames[i].setPosition(sf::Vector2f{ (40 + (float(i) * float(50))), 835 });
 	}
-	changePlayerName(_hud.playerName1, "Leo");
+	changePlayerName(_hud.playerName1, "Player1");
 
 
 	_hud.playerName1.setCharacterSize(100);
-	_hud.playerName1.setFillColor(sf::Color::Blue);
+	_hud.playerName1.setFillColor(sf::Color::Red);
 	_hud.playerName1.setPosition(700 - (40 * static_cast<int>(_hud.playerName1.getString().getSize())), 0);
-	changePlayerName(_hud.playerName2, "Swann");
+	changePlayerName(_hud.playerName2, "Player2");
 	_hud.playerName2.setCharacterSize(100);
-	_hud.playerName2.setFillColor(sf::Color::Red);
+	_hud.playerName2.setFillColor(sf::Color::Blue);
 	_hud.playerName2.setPosition(1200, 0);
 	_hud.playerName2.setStyle(sf::Text::Underlined);
 
@@ -223,7 +216,6 @@ void reloadTurn(HudData& _hud, Player& _playerActive, Player& _playerPassive, in
 			if (_hud.timerChangeTurn <= 3)
 			{
 				_hud.timerChangeTurn += 0.140;
-				std::cout << _hud.timerChangeTurn << std::endl;
 			}
 			else
 			{
@@ -583,7 +575,6 @@ void reloadTurn(HudData& _hud, Player& _playerActive, Player& _playerPassive, in
 			{
 				mousePos.x -= 20;
 				mousePos.y -= 30;
-				//_hud.unitFrames[i].setPosition(sf::Vector2f{ mousePos.x * camScale.x , mousePos.y * camScale.y } + camOffSet);
 				BlitSprite(_hud.unitFrames[i], sf::Vector2f{ mousePos.x* camScale.x, mousePos.y* camScale.y } + camOffSet, 0, _window);
 			}
 			if (_hud.overUnit == i)

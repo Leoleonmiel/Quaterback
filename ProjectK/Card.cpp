@@ -18,8 +18,7 @@ Card* Card::_SHIELD = new Card("shield", [](Player& _player, Unit& _unit)
 		_unit.AddShield(); 
 		return true;
 	});
-//Card* Card::_KNOCKBACK = new Card("push", [](Player& _player, Unit& _unit) { return true; });
-//Card* Card::_GRAB = new Card("grab", [](Player& _player, Unit& _unit) { return true; });
+
 Card* Card::_ADD_AP = new Card("addap", [](Player& _player, Unit& _unit) 
 	{ 
 		_player.SetMana(_player.GetMana() + 1);

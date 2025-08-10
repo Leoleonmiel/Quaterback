@@ -23,6 +23,8 @@ struct Smoke
 	sf::Vector2f pos;
 };
 
+#define MAX_UNIT 4
+
 class Player
 {
 private:
@@ -32,7 +34,7 @@ private:
 
 	int maxUnit;
 	int unitSelect;
-	int numberOfUnitAtStart[4];
+	int numberOfUnitAtStart[MAX_UNIT];
 
 	CardStack* cardStack;
 	std::vector<Token> token;

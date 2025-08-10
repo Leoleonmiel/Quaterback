@@ -5,6 +5,8 @@
 
 GameData* GameData::_SINGLETON = nullptr;
 
+#define MAX_PLAYERS 2
+
 class GameStates;
 GameData::GameData()
 {
@@ -13,13 +15,13 @@ GameData::GameData()
 
 	m_hudData = new HudData;
 	m_grid = new GridData;
-	m_players = new Player[2];
+	m_players = new Player[MAX_PLAYERS];
 	m_camera = new CameraData;
 	m_sound = new Sound;
 
 	m_particleManager = new ParticleManager();
 
-	m_turn = -1;
+	m_turn = 0;
 	LoadHud(*m_hudData);
 
 	m_units1[MIDDLE] = LoadSprite("Sprite/Units/Squad1/NormalVue1.png", true);
@@ -71,7 +73,7 @@ GameData::~GameData()
 
 void GameData::Update(sf::RenderWindow& _window, float& _dt)
 {
-	if (m_turn % 2 == 0)
+	if (m_turn % MAX_PLAYERS == 0)
 	{
 		UpdateHud(*m_hudData, _window, _dt, m_players[0], m_players[1], *m_camera);
 	}
@@ -84,7 +86,7 @@ void GameData::Update(sf::RenderWindow& _window, float& _dt)
 	UpdateCamera(*m_camera, _dt);
 	m_particleManager->Update(_dt);
 
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < MAX_PLAYERS; i++)
 	{
 		m_players[i].Update(_dt);
 	}
@@ -149,11 +151,7 @@ void GameData::Draw(sf::RenderWindow& _window)
 void GameData::MouseMoved(sf::RenderWindow& _window, sf::Event& _event)
 {
 	sf::Vector2f mousePos = _window.mapPixelToCoords(sf::Mouse::getPosition(_window));
-
 	m_grid->MouseMovedGrid(mousePos, GetPlayerFromTurn()->GetMana());
-
-	//std::cout << "Mana joueur 1 : " << m_players[0].GetMana() << '\n';
-	//std::cout << "Mana joueur 2 : " << m_players[1].GetMana() << '\n';
 }
 
 
@@ -213,17 +211,13 @@ void GameData::MousePressed(sf::RenderWindow& _window, sf::Event& _event, Sound&
 	sf::Vector2f camScale = { camSize.x / SCREEN_WIDTH , camSize.y / SCREEN_HEIGHT };
 
 	sf::Vector2f mousePos = _window.mapPixelToCoords(sf::Mouse::getPosition(_window));
-	if (_event.mouseButton.button == sf::Mouse::Left)
-	{
-		//m_grid->MousePressedGrid(mousePos);
-	}
 	if (m_turn < 0)
 	{
 		m_players[1].MousePressed(m_turn, *m_grid, mousePos, m_limit, _sound);
 	}
 	else
 	{
-		m_players[m_turn % 2].MousePressed(m_turn, *m_grid, mousePos, m_limit, _sound);
+		m_players[m_turn % MAX_PLAYERS].MousePressed(m_turn, *m_grid, mousePos, m_limit, _sound);
 	}
 	if (_event.mouseButton.button == sf::Mouse::Left && m_hudData->targetUnit != 6)
 	{
